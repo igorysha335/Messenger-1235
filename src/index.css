@@ -1,0 +1,299 @@
+/* Google Fonts must be first — before any @tailwind directives */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 7.1%;
+    --foreground: 0 0% 100%;
+
+    --card: 0 0% 11.8%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 0 0% 11.8%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 263 83% 58%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 70.2%;
+
+    --accent: 263 83% 58%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 263 83% 58%;
+
+    --radius: 0.75rem;
+
+    --gradient-start: 239 84% 67%;
+    --gradient-end: 263 83% 58%;
+
+    --inactive: 220 9% 46%;
+
+    --sidebar-background: 0 0% 9%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 263 83% 58%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 0% 18%;
+    --sidebar-ring: 263 83% 58%;
+  }
+
+  .light {
+    --background: 0 0% 97%;
+    --foreground: 0 0% 9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 9%;
+
+    --primary: 263 83% 58%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 92%;
+    --secondary-foreground: 0 0% 9%;
+
+    --muted: 0 0% 92%;
+    --muted-foreground: 0 0% 40%;
+
+    --accent: 263 83% 58%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 88%;
+    --input: 0 0% 88%;
+    --ring: 263 83% 58%;
+
+    --gradient-start: 239 84% 67%;
+    --gradient-end: 263 83% 58%;
+
+    --inactive: 220 9% 66%;
+
+    --sidebar-background: 0 0% 95%;
+    --sidebar-foreground: 0 0% 9%;
+    --sidebar-primary: 263 83% 58%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 92%;
+    --sidebar-accent-foreground: 0 0% 9%;
+    --sidebar-border: 0 0% 88%;
+    --sidebar-ring: 263 83% 58%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html, body {
+    /* Fill exactly the visual viewport — never scroll the root */
+    height: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overscroll-behavior: none;
+    /* Prevent elastic bounce on iOS/Android that shifts the AppBar */
+    touch-action: manipulation;
+  }
+
+  #root {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted));
+    border-radius: 2px;
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: hsla(var(--background), 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid hsla(0, 0%, 100%, 0.08);
+  }
+
+  .glass-nav {
+    background: hsla(var(--background), 0.85);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-top: 1px solid hsla(0, 0%, 100%, 0.06);
+  }
+
+  .gradient-primary {
+    background: linear-gradient(135deg, hsl(var(--gradient-start)), hsl(var(--gradient-end)));
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, hsl(var(--gradient-start)), hsl(var(--gradient-end)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .bubble-sent {
+    background: linear-gradient(135deg, hsl(239 84% 67% / 0.9), hsl(263 83% 58% / 0.9));
+    border-radius: 18px 18px 4px 18px;
+  }
+
+  .bubble-received {
+    background: hsl(var(--secondary));
+    border-radius: 18px 18px 18px 4px;
+  }
+
+  .ripple {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ripple::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--ripple-x, 50%) var(--ripple-y, 50%), hsla(263, 83%, 58%, 0.15) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .ripple:active::after {
+    opacity: 1;
+  }
+
+  /* ── Safe-area helpers ───────────────────────────── */
+  .safe-top {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  .safe-bottom {
+    padding-bottom: max(env(safe-area-inset-bottom, 0px), 8px);
+  }
+
+  /* ── Telegram-style chat layout ─────────────────── */
+  /*
+   * The chat screen uses a plain flex-column that fills 100% of the
+   * layout viewport height.  Because we set
+   *   interactive-widget=resizes-content
+   * in the <meta viewport>, Android Chrome/WebView shrinks the layout
+   * viewport when the soft keyboard opens, so the flex column shrinks
+   * too — the AppBar stays at the top, the input bar stays at the
+   * bottom, and the message list gains less space (scrolls).
+   * No JS resize listeners needed.
+   */
+  .chat-screen {
+    display: flex;
+    flex-direction: column;
+    /* 100% of the layout viewport — NOT 100dvh which re-calculates on
+       keyboard open and causes the header to jump on some browsers */
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .chat-appbar {
+    /* Stick to top; must NOT use position:fixed so it stays inside the
+       flex column and isn't affected by the visual-viewport shift */
+    flex: 0 0 auto;
+    width: 100%;
+    z-index: 50;
+    /* Glassmorphism identical to original .glass */
+    background: hsla(var(--background), 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid hsla(0, 0%, 100%, 0.08);
+    /* Account for device status-bar / notch */
+    padding-top: max(env(safe-area-inset-top, 0px), 44px);
+    padding-bottom: 12px;
+    padding-left: 12px;
+    padding-right: 12px;
+    /* GPU layer — prevents any sub-pixel shift */
+    transform: translateZ(0);
+    will-change: transform;
+  }
+
+  .chat-messages {
+    /* Flex-grow fills all space between AppBar and InputBar */
+    flex: 1 1 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .chat-inputbar {
+    /* Stick to bottom of the flex column — keyboard shrinks the column
+       so this naturally rides up with the keyboard */
+    flex: 0 0 auto;
+    width: 100%;
+    z-index: 50;
+    background: hsl(var(--background));
+    border-top: 1px solid hsla(var(--border), 0.3);
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  .animate-message-in {
+    animation: messageIn 0.25s ease-out;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes messageIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
